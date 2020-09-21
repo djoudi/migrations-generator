@@ -1,4 +1,4 @@
-<?php namespace Xethron\MigrationsGenerator;
+<?php namespace OscarAFDev\MigrationsGenerator;
 
 use Way\Generators\Commands\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
@@ -9,11 +9,12 @@ use Way\Generators\Filesystem\Filesystem;
 use Way\Generators\Compilers\TemplateCompiler;
 use Illuminate\Database\Migrations\MigrationRepositoryInterface;
 
-use Xethron\MigrationsGenerator\Generators\SchemaGenerator;
-use Xethron\MigrationsGenerator\Syntax\AddToTable;
-use Xethron\MigrationsGenerator\Syntax\DroppedTable;
-use Xethron\MigrationsGenerator\Syntax\AddForeignKeysToTable;
-use Xethron\MigrationsGenerator\Syntax\RemoveForeignKeysFromTable;
+use OscarAFDev\MigrationsGenerator\Generators\SchemaGenerator;
+use OscarAFDev\MigrationsGenerator\Syntax\AddToTable;
+use OscarAFDev\MigrationsGenerator\Syntax\DroppedTable;
+use OscarAFDev\MigrationsGenerator\Syntax\AddForeignKeysToTable;
+use OscarAFDev\MigrationsGenerator\Syntax\RemoveForeignKeysFromTable;
+use Illuminate\Support\Str;
 
 use Illuminate\Contracts\Config\Repository as Config;
 
@@ -52,7 +53,7 @@ class MigrateGenerateCommand extends GeneratorCommand {
 	protected $config;
 
 	/**
-	 * @var \Xethron\MigrationsGenerator\Generators\SchemaGenerator
+	 * @var \OscarAFDev\MigrationsGenerator\Generators\SchemaGenerator
 	 */
 	protected $schemaGenerator;
 
@@ -239,7 +240,7 @@ class MigrateGenerateCommand extends GeneratorCommand {
 
 		foreach ( $tables as $table ) {
 			$this->table = $table;
-			$this->migrationName = 'create_'. $this->table .'_table';
+			$this->migrationName = 'create_' . str_replace('.', '', $this->table) . '_table';
 			$this->fields = $this->schemaGenerator->getFields( $this->table );
 
 			$this->generate();
@@ -324,7 +325,7 @@ class MigrateGenerateCommand extends GeneratorCommand {
 		}
 
 		return [
-			'CLASS' => ucwords(camel_case($this->migrationName)),
+			'CLASS' => ucwords(Str::camel($this->migrationName)),
 			'UP'    => $up,
 			'DOWN'  => $down
 		];
@@ -395,7 +396,7 @@ class MigrateGenerateCommand extends GeneratorCommand {
 		$excludes = ['migrations'];
 		$ignore = $this->option('ignore');
 		if ( ! empty($ignore)) {
-			return array_merge($excludes, explode(',', $ignore));
+			return array_merge($excludes, preg_split('/[,\s]+/', $ignore));
 		}
 
 		return $excludes;

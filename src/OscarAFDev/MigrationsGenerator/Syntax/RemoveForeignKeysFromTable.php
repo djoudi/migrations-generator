@@ -1,8 +1,8 @@
-<?php namespace Xethron\MigrationsGenerator\Syntax;
+<?php namespace OscarAFDev\MigrationsGenerator\Syntax;
 
 /**
  * Class RemoveForeignKeysFromTable
- * @package Xethron\MigrationsGenerator\Syntax
+ * @package OscarAFDev\MigrationsGenerator\Syntax
  */
 class RemoveForeignKeysFromTable extends Table {
 

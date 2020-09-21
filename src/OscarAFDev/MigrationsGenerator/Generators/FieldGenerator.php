@@ -1,4 +1,4 @@
-<?php namespace Xethron\MigrationsGenerator\Generators;
+<?php namespace OscarAFDev\MigrationsGenerator\Generators;
 
 use DB;
 
@@ -48,6 +48,7 @@ class FieldGenerator {
 	 * @param string $table
 	 * @return array
 	 */
+	
 	protected function getEnum($table)
 	{
 		try {
@@ -70,14 +71,19 @@ class FieldGenerator {
 	 * @param string $table
 	 * @return array
 	 */
-	protected function setEnum(array $fields, $table)
-	{
-		foreach ($this->getEnum($table) as $column) {
-			$fields[$column->column_name]['type'] = 'enum';
-			$fields[$column->column_name]['args'] = str_replace('enum(', 'array(', $column->column_type);
-		}
-		return $fields;
-	}
+    protected function setEnum(array $fields, $table)
+    {
+        foreach ($this->getEnum($table) as $column) {
+            if (isset($column->COLUMN_NAME)) {
+                $fields[$column->COLUMN_NAME]['type'] = 'enum';
+                $fields[$column->COLUMN_NAME]['args'] = str_replace('enum(', 'array(', $column->COLUMN_TYPE);
+            } elseif (isset($column->column_name)) {
+                $fields[$column->column_name]['type'] = 'enum';
+                $fields[$column->column_name]['args'] = str_replace('enum(', 'array(', $column->column_type);
+            }
+        }
+        return $fields;
+    }
 
 	/**
 	 * @param \Doctrine\DBAL\Schema\Column[] $columns
@@ -125,10 +131,10 @@ class FieldGenerator {
 					$type = 'softDeletes';
 					$name = '';
 				} elseif ($name == 'created_at' and isset($fields['updated_at'])) {
-					$fields['updated_at'] = ['field' => '', 'type' => 'timestamps'];
+					$fields['updated_at'] = ['field' => '', 'type' => 'timestamps', 'args' => $column->getPrecision()];
 					continue;
 				} elseif ($name == 'updated_at' and isset($fields['created_at'])) {
-					$fields['created_at'] = ['field' => '', 'type' => 'timestamps'];
+					$fields['created_at'] = ['field' => '', 'type' => 'timestamps', 'args' => $column->getPrecision()];
 					continue;
 				}
 			} elseif (in_array($type, ['decimal', 'float', 'double'])) {

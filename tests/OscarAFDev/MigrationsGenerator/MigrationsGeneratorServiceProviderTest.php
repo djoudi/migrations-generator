@@ -1,4 +1,4 @@
-<?php namespace Xethron\MigrationsGenerator;
+<?php namespace OscarAFDev\MigrationsGenerator;
 
 use Mockery;
 use PHPUnit_Framework_TestCase;
@@ -87,7 +87,7 @@ class MigrationsGeneratorServiceProviderTest extends PHPUnit_Framework_TestCase 
             );
 
           $this->assertInstanceOf(
-            'Xethron\MigrationsGenerator\MigrateGenerateCommand',
+            'OscarAFDev\MigrationsGenerator\MigrateGenerateCommand',
             $callback($mock)
           );
 
@@ -128,7 +128,7 @@ class MigrationsGeneratorServiceProviderTest extends PHPUnit_Framework_TestCase 
       $app_mock = $this->get_app_mock();
     }
 
-    return Mockery::mock('Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider', [
+    return Mockery::mock('OscarAFDev\MigrationsGenerator\MigrationsGeneratorServiceProvider', [
         $app_mock
       ])
       ->shouldAllowMockingProtectedMethods()

@@ -1,8 +1,8 @@
-<?php namespace Xethron\MigrationsGenerator\Syntax;
+<?php namespace OscarAFDev\MigrationsGenerator\Syntax;
 
 /**
  * Class AddToTable
- * @package Xethron\MigrationsGenerator\Syntax
+ * @package OscarAFDev\MigrationsGenerator\Syntax
  */
 class AddToTable extends Table {
 
@@ -34,14 +34,24 @@ class AddToTable extends Table {
 
 		// If we have args, then it needs
 		// to be formatted a bit differently
-		if (isset($field['args'])) {
-			$output = sprintf(
-				"\$table->%s(%s, %s)",
-				$type,
-				$property,
-				$field['args']
-			);
-		}
+        if (isset($field['args']) && $type !== 'text')
+        {
+            if ($property == '' || $property == null) {
+                $output = sprintf(
+                    "\$table->%s(%s)",
+                    $type,
+                    $field['args']
+                );
+            }
+            else {
+                $output = sprintf(
+                    "\$table->%s(%s, %s)",
+                    $type,
+                    $property,
+                    $field['args']
+                );
+            }
+        }
 		if (isset($field['decorators'])) {
 			$output .= $this->addDecorators( $field['decorators'] );
 		}

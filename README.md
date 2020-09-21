@@ -1,66 +1,22 @@
-# Laravel Migrations Generator
+# Laravel Migrations Generator Laravel 5/6/7 +
 
-[![Build Status](https://travis-ci.org/Xethron/migrations-generator.svg)](https://travis-ci.org/Xethron/migrations-generator)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Xethron/migrations-generator/badges/quality-score.png?s=41d919c6d044749cb8575bb936efbddc4cebc0d8)](https://scrutinizer-ci.com/g/Xethron/migrations-generator/)
-[![Latest Stable Version](https://poser.pugx.org/xethron/migrations-generator/v/stable.png)](https://packagist.org/packages/xethron/migrations-generator)
-[![Total Downloads](https://poser.pugx.org/xethron/migrations-generator/downloads.png)](https://packagist.org/packages/xethron/migrations-generator)
-[![License](https://poser.pugx.org/xethron/migrations-generator/license.png)](https://packagist.org/packages/xethron/migrations-generator)
+
+[![Latest Stable Version](https://poser.pugx.org/oscarafdev/migrations-generator/v/stable)](https://packagist.org/packages/oscarafdev/migrations-generator)
+[![Total Downloads](https://poser.pugx.org/oscarafdev/migrations-generator/downloads)](https://packagist.org/packages/oscarafdev/migrations-generator)
+[![License](https://poser.pugx.org/oscarafdev/migrations-generator/license)](https://packagist.org/packages/oscarafdev/migrations-generator)
 
 Generate Laravel Migrations from an existing database, including indexes and foreign keys!
 
-## Upgrading to Laravel 5.4
 
-Please note that the Laravel 4 Generator edits have been moved to `https://github.com/xethron/Laravel-4-Generators.git` to update compatibility.
-
-## Laravel 5 installation
+## Laravel 6 installation
 
 The recommended way to install this is through composer:
 
 ```bash
-composer require --dev "xethron/migrations-generator"
+composer require oscarafdev/migrations-generator --dev
 ```
 
-In Laravel 5.5 the service providers will automatically get registered. 
-
-In older versions of the framework edit `config/app.php` and add this to providers section:
-
-```php
-Way\Generators\GeneratorsServiceProvider::class,
-Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
-```
-If you want this lib only for dev, you can add the following code to your `app/Providers/AppServiceProvider.php` file, within the `register()` method:
-
-```php
-public function register()
-{
-    if ($this->app->environment() !== 'production') {
-        $this->app->register(\Way\Generators\GeneratorsServiceProvider::class);
-        $this->app->register(\Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class);
-    }
-    // ...
-}
-```
-
-Notes:
-* Thanks to @jamisonvalenta, you can now generate Migrations in Laravel 5!
-* `feature/laravel-five-stable` was forked from `way/generators` `3.0.3` and was made Laravel `5.0` ready. Jeffrey Way has discontinued support for Laravel 5, so the other `artisan generate:` commands may not have been made `5.0` compatible.  Investigate the `artisan make:` commands for substitutes, contribute to Laravel to extend generation support, or fix it and submit a PR to `jamisonvalenta/feature/laravel-five-stable`.
-
-## Laravel 4 installation
-
-Run the following composer command:
-
-```bash
-composer require --dev "xethron/migrations-generator:~1.3.0"
-```
-
-Next, add the following service providers:
-
-```php
-'Way\Generators\GeneratorsServiceProvider',
-'Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider',
-```
-
-And you're set. To double check if its working, run `php artisan`, and look for the command `migrate:generate`
+In Laravel 5.5+ the service providers will automatically get registered. 
 
 ## Usage
 
@@ -79,6 +35,17 @@ Check out Chung Tran's blog post for a quick step by step introduction: [Generat
 ## Changelog
 
 Changelog for Laravel Migrations Generator
+
+### Ago 2020: v2.0.23
+* Added support for precisions in timestamp.
+* Fixed an issue with the text type.
+* Fixed other reported bugs
+
+### May 2020: v2.0.19
+* Support for Laravel 7
+
+### 10 December 2019: v2.0.12
+* Support for Laravel 6
 
 ### 20 November 2016: v2.0.0
 * Support for Laravel 5
@@ -128,6 +95,10 @@ Thanks to Jeffrey Way for his amazing Laravel-4-Generators package. This package
 ## Contributors
 
 Bernhard Breytenbach ([@BBreyten](https://twitter.com/BBreyten))
+
+Oscar Fernandez ([@oscarafdev](https://www.linkedin.com/in/oscarafdev/))
+
+ofernandez@sofrecom.com.ar
 
 ## License
 
