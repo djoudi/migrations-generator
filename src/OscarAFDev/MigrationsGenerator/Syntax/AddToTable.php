@@ -45,7 +45,7 @@ class AddToTable extends Table {
             }
             else {
                 $output = sprintf(
-                    "\$table->%s('%s', %s)",
+                    "\$table->%s(%s, %s)",
                     $type,
                     $property,
                     $field['args']
